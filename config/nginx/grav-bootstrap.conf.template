@@ -1,0 +1,60 @@
+# Grav CMS - Nginx bootstrap config (HTTP only, no TLS yet)
+#
+# Purpose: nginx refuses to start a server block whose ssl_certificate
+# doesn't exist on disk yet, which is a chicken-and-egg problem the very
+# first time you issue a Let's Encrypt certificate. Deploy THIS file first,
+# obtain the certificate via the webroot method, then switch to
+# grav.conf.template for the real HTTP->HTTPS + TLS config.
+#
+# Placeholders to replace (see ../README.md, or use render.sh):
+#   __DOMAIN__           e.g. example.com
+#   __WEBROOT__          e.g. /srv/grav/dansal_grav
+#   __PHP_FPM_SOCK__     e.g. unix:/run/php/php8.4-fpm.sock
+#   __CERTBOT_WEBROOT__  e.g. /var/www/certbot
+
+server {
+    listen 80;
+    listen [::]:80;
+    server_name __DOMAIN__ www.__DOMAIN__;
+
+    root __WEBROOT__;
+    index index.php index.html;
+
+    # Let's Encrypt ACME http-01 challenge (certbot webroot method)
+    location ^~ /.well-known/acme-challenge/ {
+        root __CERTBOT_WEBROOT__;
+        default_type "text/plain";
+        try_files $uri =404;
+    }
+
+    ## Begin - Index
+    location / {
+        try_files $uri $uri/ /index.php?$query_string;
+    }
+    ## End - Index
+
+    ## Begin - Security (Grav)
+    location ~* ^/(\.git|cache|bin|logs|backup|tests)/.*$ { return 403; }
+    location ~* ^/user/(config|env)/.*$ { return 403; }
+    location ~* ^/user/accounts/[^/]+/[^/]+\.(jpe?g|png|gif|webp|avif|bmp|ico)$ { try_files $uri =404; }
+    location ~* ^/user/accounts/.*$ { return 403; }
+    location ~* ^/user/data/.*\.(jpe?g|png|gif|webp|avif|bmp|ico|mp4|webm|ogg|ogv|mov|mp3|wav|m4a|flac|pdf)$ { try_files $uri =404; }
+    location ~* ^/user/data/.*$ { return 403; }
+    location ~* ^/(system|vendor)/.*\.(txt|xml|md|html|htm|shtml|shtm|json|yaml|yml|php|php2|php3|php4|php5|phar|phtml|pl|py|cgi|twig|sh|bat)$ { return 403; }
+    location ~* ^/user/.*\.(txt|md|json|yaml|yml|php|php2|php3|php4|php5|phar|phtml|pl|py|cgi|twig|sh|bat)$ { return 403; }
+    location ~ ^/(LICENSE\.txt|composer\.lock|composer\.json|nginx\.conf|web\.config|htaccess\.txt|\.htaccess) { return 403; }
+    location ~ /\.env(\.|$) { return 403; }
+    ## End - Security
+
+    ## Begin - PHP
+    location ~ \.php$ {
+        fastcgi_pass __PHP_FPM_SOCK__;
+        fastcgi_split_path_info ^(.+\.php)(/.+)$;
+        fastcgi_index index.php;
+        include fastcgi_params;
+        fastcgi_param SCRIPT_FILENAME $document_root/$fastcgi_script_name;
+    }
+    ## End - PHP
+
+    client_max_body_size 64m;
+}
