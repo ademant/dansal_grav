@@ -1,0 +1,15 @@
+#!/usr/bin/env bash
+# Re-fix Grav runtime dir ownership after `git pull`/merge, in case any of
+# them got deleted and recreated (e.g. by a clean/reset) since the last fix.
+# Non-interactive: if passwordless sudo isn't set up, this just warns
+# instead of hanging on a password prompt.
+repo_root="$(git rev-parse --show-toplevel 2>/dev/null)" || exit 0
+script="$repo_root/config/fix-permissions.sh"
+[[ -x "$script" ]] || exit 0
+
+if sudo -n true 2>/dev/null; then
+  sudo -n "$script"
+else
+  echo "note: skipped runtime-dir permission fix (no passwordless sudo)." >&2
+  echo "      run manually if needed: sudo $script" >&2
+fi

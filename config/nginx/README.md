@@ -90,6 +90,29 @@ sudo certbot renew --deploy-hook "systemctl reload nginx"
 (Add `--deploy-hook` permanently by dropping a script in
 `/etc/letsencrypt/renewal-hooks/deploy/`.)
 
+## Runtime directory permissions
+
+Grav's runtime dirs (`cache/`, `logs/`, `tmp/`, `backup/`, `images/`,
+`assets/`, `user/data/`, `user/accounts/`) are gitignored, so a fresh clone,
+`bin/grav clear-cache`, or anything else run as a human/deploy user
+recreates them owned by *that* user - not the php-fpm user (`nginx` on this
+host). When that happens Grav serves its own "Grav Problems" page instead
+of the site because PHP can't write to them.
+
+Fix (safe to re-run any time):
+```bash
+sudo ../fix-permissions.sh
+```
+See `../fix-permissions.sh`. A `post-merge`/`post-checkout` git hook in
+`../git-hooks/` runs it automatically after `git pull` on hosts where
+`core.hooksPath` is pointed at that directory:
+```bash
+git config core.hooksPath config/git-hooks
+```
+(already set on this checkout). It no-ops quietly if passwordless sudo
+isn't available rather than hanging on a prompt - re-run the script by hand
+in that case.
+
 ## Notes
 
 - Both templates carry Grav's standard hardening rules (deny access to
