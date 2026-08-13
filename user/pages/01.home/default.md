@@ -6,6 +6,8 @@ hero_classes: hero-medium text-light
 body_classes: title-center
 ---
 
+![Kartenansicht von dansal](intro_map.avif)
+
 dansal ist eine quelloffene, selbst gehostete Plattform für Tanz-Communities —
 von Bal-Folk und Fest-Noz bis zu Workshops, Festivals und offenen Tanzabenden.
 Veranstalter:innen veröffentlichen und verwalten ihre Termine über eine
