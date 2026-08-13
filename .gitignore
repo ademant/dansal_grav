@@ -1,0 +1,27 @@
+# Grav runtime/cache directories - keep the folder, ignore generated contents
+/cache/*
+!/cache/.gitkeep
+/logs/*
+!/logs/.gitkeep
+/backup/*
+!/backup/.gitkeep
+/tmp/*
+!/tmp/.gitkeep
+/images/*
+!/images/.gitkeep
+
+# User uploaded/generated content
+/user/data/*
+!/user/data/.gitkeep
+/user/accounts/*
+!/user/accounts/.gitkeep
+
+# Local environment overrides
+.env
+
+# OS / editor cruft
+.DS_Store
+Thumbs.db
+.idea
+.vscode
+*.swp
