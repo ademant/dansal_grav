@@ -12,14 +12,14 @@ Veranstalter:innen veröffentlichen und verwalten ihre Termine über eine
 Weboberfläche, während Tänzer:innen sie über Karte, Wochenkalender und
 Filter nach Stil, Ort und Datum entdecken.
 
+* **Veranstaltungen importieren** - von verschiedenen Webseiten über iCal-/JSON-Feeds
 * **Veranstaltungen verwalten** — anlegen, bearbeiten, veröffentlichen,
   wiederkehrende Reihen, Bild-Upload, Duplikat-Erkennung
 * **Events entdecken** — interaktive Karte, Kalender, Filter, iCal-Export
-* **Import** — bestehende iCal-/JSON-Feeds automatisch übernehmen
 * **Organisationen & Musiker:innen** — eigene Profilseiten und Rollen
 * **Community** — Pinnwand für Mitfahrgelegenheiten, Unterkunft, Tickets
 * **Fediverse** — Ankündigungen per ActivityPub folgen
 * **Anmeldung** — optionale Registrierung mit Kapazität und Preismodellen
 
 dansal ist in Go geschrieben, nutzt SQLite und lässt sich einfach selbst
-hosten — mit oder ohne Docker.
+hosten.
