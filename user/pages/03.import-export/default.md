@@ -26,6 +26,8 @@ Viele Webseiten, mit denen Folkclubs ihre Internetseiten betreiben, verwenden Wo
 
 ## 3. dansal als Datenbank nutzen und Termine einbetten
 
+![Übersicht: dansal als Datenbank für eingebettete Termine](overview_importexport.png)
+
 Es gibt einzelne Folkclubs, welche z.B. Google Calendar verwenden und die dort eingepflegten Termine auf der eigenen Seite darstellen. Dies hat den Vorteil, dass die eigene Seite sehr einfach gehalten werden kann und keine komplexen Plugins verwaltet werden müssen. dansal kann alternativ zu einem Google Calendar verwendet werden: Die Termine werden auf dansal verwaltet. Auf der eigenen Seite können die Termine als Tabelle oder Liste eingebunden werden. Auch eine Darstellung auf einer Karte ist möglich.
 
 **Vorteil:** Die eigene Website zeigt aktuelle Termine, ohne dass dafür
