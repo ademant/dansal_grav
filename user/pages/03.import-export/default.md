@@ -6,6 +6,7 @@ menu: Import & Export
 # Wie kommen Termine in den Kalender?
 
 dansal ist als übergreifender Kalender konzipiert, um Veranstaltungen verschiedener Folkclubs übersichtlich darzustellen. Wer Bälle veranstaltet, soll möglichst einfach auch auf dansal die Termine veröffentlichen. Ohne die Veranstaltung auf mehreren Seiten einzupflegen. Oder gar auf mehreren Seiten aktualisieren zu müssen. Hierzu bietet dansal verschiedene Wege, um Veranstaltungen unterschiedlicher Vereine auf einer Seite darstellen zu können.
+![Übersicht: dansal als Datenbank für eingebettete Termine](overview_importexport.png)
 
 ## 1. Eigene Website behalten, nur einen Kalender pflegen
 
@@ -26,8 +27,6 @@ Viele Webseiten, mit denen Folkclubs ihre Internetseiten betreiben, verwenden Wo
 
 ## 3. dansal als Datenbank nutzen und Termine einbetten
 
-![Übersicht: dansal als Datenbank für eingebettete Termine](overview_importexport.png)
-
 Es gibt einzelne Folkclubs, welche z.B. Google Calendar verwenden und die dort eingepflegten Termine auf der eigenen Seite darstellen. Dies hat den Vorteil, dass die eigene Seite sehr einfach gehalten werden kann und keine komplexen Plugins verwaltet werden müssen. dansal kann alternativ zu einem Google Calendar verwendet werden: Die Termine werden auf dansal verwaltet. Auf der eigenen Seite können die Termine als Tabelle oder Liste eingebunden werden. Auch eine Darstellung auf einer Karte ist möglich.
 
 **Vorteil:** Die eigene Website zeigt aktuelle Termine, ohne dass dafür
@@ -42,8 +41,8 @@ die Pinnwand für Mitfahrgelegenheiten und Unterkunft nutzen, per
 Fediverse ankündigen. Die dansal-Seite selbst übernimmt in diesem Fall
 die öffentliche Auffindbarkeit — über Suchmaschinen, Kalender und Karte.
 
-## Technik
-### Import über iCal
+# Technik
+## 1. Import über iCal
 iCal ist ein Standard, um Termine maschinenlesbar zu verbreiten, so dass die Termine direkt im eigenen Kalender auf dem Smartphone oder Desktop dargestellt werden. Diese Technik wird verwendet, um Termine in dansal einzulesen. Moderner ist das Format JSON. Letztlich sind beides lesbare Textdateien, die nur anders strukturiert sind. Je nach Software sind diese Textdateien etwas unterschiedlich gefüllt. Dies führt dazu, dass manchmal nicht alle interessanten Informationen übertragen werden.
 
 Mit dansal können diese Textdateien geladen und die einzelnen Veranstaltungen kopiert werden.
@@ -52,23 +51,99 @@ iCal ist relativ alt und bietet nur die wichtigsten Informationen an, so dass nu
 
 Beim Einlesen der Termine werden automatisch Veranstaltungsorte angelegt. Bei neuen Veranstaltungen werden die Termine direkt diesen Orten zugewiesen. Auf dansal können die Orte um Zusatzinformationen erweitert werden, wie die Kartendarstellungen. Diese werden dann für alle künftigen Veranstaltungen übernommen. Der Pflegeaufwand auf dansal ist damit gering. Nur anfangs müssen Veranstaltungsorte gepflegt werden, danach werden nur Termine auf der eigenen Webseite gepflegt.
 
-Änderungen an Veranstaltungen können bis zu einem gewissen Grad automatisch übernommen werden:
+### WordPress-Plugins mit iCal-Export
 
-* Verschiebung um bis zu 3h: Wird die Veranstaltung um bis zu 3h nach vorne oder nach hinten verschoben, wird dies beim nächsten Aufruf automatisch angepasst.
-* Neuer Titel: Wenn Ort und Zeit erhalten bleiben, wird ein neuer Titel direkt übernommen.
-* Andere Beschreibung: Änderungen der Beschreibung werden direkt übernommen.
+Wer seine Termine bereits mit einem WordPress-Kalender-Plugin pflegt, kann die
+kostenlose Version davon oft direkt als iCal-Quelle bei dansal einbinden.
+Folgende Plugins bieten schon in der kostenlosen Version einen vollständigen
+iCal-Feed mit allen Terminen an, ohne dass dafür eine Pro-Version nötig ist:
 
-Wird die Veranstaltung an einen anderen Ort verschoben, kann es sein, dass dies nicht automatisch übernommen werden kann, so dass auf dansal manuell angepasst werden muss.
+* **Events Manager** — vollständiger iCal-Export aller Termine ist im
+  Free-Plugin enthalten.
+* **Event Organiser** — bietet einen seitenweiten ICS-Feed bereits in der
+  kostenlosen Version.
+* **All-in-One Event Calendar (Timely)** — enthält einen iCal-Abo-Link für
+  den gesamten Kalender im Free-Plugin.
+* **Sugar Calendar** — der iCal-Export ist bei diesem Plugin nach aktuellem
+  Stand teils nur als kostenpflichtige Erweiterung verfügbar; vor dem
+  Einrichten lohnt sich ein Blick in die aktuelle Plugin-Beschreibung.
 
-Der Abruf über iCal muss in dansal eingerichtet werden. dansal holt sich regelmäßig Aktualisierungen ab. Die Webseite selbst muss nicht aktiv Informationen senden.
+Andere verbreitete Plugins wie **The Events Calendar** oder **Modern Events
+Calendar** bieten in der kostenlosen Version meist nur den iCal-Export
+einzelner Termine an; ein Feed mit allen Terminen ist dort oft der
+kostenpflichtigen Pro-Version vorbehalten.
 
-### Export über iCal
-Alle Veranstaltungen können über verschiedene Kalenderformate exportiert werden. Dabei existieren vordefinierte Filter, um nur Veranstaltungen einzelner Folkclubs oder beispielsweise nur Workshops einzubinden.
+### Andere iCal-Exportmethoden
 
-### REST API
-Die Datenbank verwendet eine REST API Architektur. Hierüber können andere Dienste Informationen abrufen bzw. ändern. Das Abrufen von Daten kann ohne eigenes Konto anonym erfolgen.
+WordPress-Plugins sind der häufigste Fall, aber nicht die einzige Quelle
+für einen iCal-Feed. dansal kann grundsätzlich jeden öffentlich
+erreichbaren iCal-Link einbinden, unabhängig davon, womit er erzeugt
+wurde:
 
-Über die REST API kann ein Plugin Informationen mit dansal austauschen. Mit einem Service-Konto können Veranstaltungen für eine einzelne Organisation aktiv an dansal gesendet werden. Mit dem Service-Account können alle Möglichkeiten von dansal genutzt werden.
+* **Google Kalender** — ein öffentlicher Kalender bietet unter den
+  Kalendereinstellungen eine "Geheime Adresse im iCal-Format", die sich
+  direkt als Quelle einpflegen lässt.
+* **Andere CMS/Kalender-Software** — z. B. Drupal-Kalendermodule,
+  Nextcloud-Kalender oder Vereinsverwaltungssoftware, die einen
+  ICS-Abo-Link anbieten.
+* **Manuell gepflegte .ics-Datei** — auch eine von Hand erstellte und auf
+  dem eigenen Webspace abgelegte iCal-Datei funktioniert, solange sie
+  über eine feste URL erreichbar ist.
 
+In allen Fällen gilt dieselbe Einschränkung wie beim WordPress-Feed: iCal
+transportiert nur die wichtigsten Felder — Titel, Start-/Endzeit und
+Beschreibung. Zusätzliche dansal-Funktionen wie Kartendarstellung oder
+Tanzstile müssen bei Bedarf separat ergänzt werden.
 
+### Einbindung in dansal
+Der Link zu einem iCal wird in dansal eingepflegt und dort konfiguriert. Einem iCal-Url kann ein Folkclub zugewiesen werden, welcher als Organisator angezeigt wird. Zusätzlich kann eine Veranstaltungsart (Bal, Workshop, Festival) allen in dem iCal enthaltenen Veranstaltungen zugewiesen werden. Ebenso können Tanzstile vorgegeben werden.
 
+Die in den Veranstaltungen hinterlegten Orte werden automatisch angelegt. Sind dort Koordinaten angegeben, kann die Veranstaltung direkt auf der Karte angezeigt werden. Ansonsten wird die Veranstaltung nur in der Wochenübersicht dargestellt. Ohne Koordinaten müssen diese in den Verwaltung der Orte separat nachgepflegt werden. Ist in dem iCal eine Adresse angegeben, kann hieraus die Koordinaten ermittelt und gespeichert werden.
+
+## 2. Eigene WordPress-Seite mit dansal-Plugin
+Für WordPress existiert ein Plugin, welches über die REST-API direkt Veranstaltungen auf dansal verarbeiten kann. Auf dansal wird ein Service-Account für einen Folkclub angelegt und eine Registrierungs-URL erzeugt. Mit dieser URL verbindet sich das Plugin mit der dansal-Instanz und es werden Zugangsdaten ausgetauscht. Das Plugin kann direkt die hinterlegten Orte als auch Veranstaltungen auf der dansal-Instanz verarbeiten. Lokal in der WordPress-Instanz wird eine Kopie gehalten, sollte die Verbindung zur dansal-Instanz verloren gehen.
+
+## 3. dansal Termine auf eigene Webseite einbinden
+Die Veranstaltungen lassen sich als iFrame oder embed Element in der eigenen Seite einbinden. Hierzu lassen sich verschiedene Filter anwenden, um Termine beispielsweise nur von einem Folkclub darzustellen. Die Termine werden auf dansal mit einem Nutzerkonto erstellt und verwaltet, wie bei einem Google Kalender.
+
+## 4. Veranstaltungen direkt auf dansal einpflegen
+
+Ohne Feed, Plugin oder REST-API lassen sich Termine auch direkt auf dansal
+angelegt werden. Dafür gibt es zwei Wege, je nachdem ob ein Benutzerkonto
+vorhanden ist oder nicht.
+
+### Als angemeldeter Nutzer
+
+Mit einem Benutzerkonto wird die Veranstaltung sofort in der Verwaltung von
+dansal erfasst — inklusive aller Möglichkeiten wie Bild-Upload,
+wiederkehrende Reihen, Timetable, Anmeldung/Kapazität und Preismodellen.
+Je nach zugewiesener Rolle unterscheidet sich, was bearbeitet werden kann:
+
+* **Nutzer:in (`user`)** — legt Termine ausschließlich für die eigene
+  Organisation an.
+* **Publisher (`publisher`)** — verwaltet Termine, Veranstaltungsorte und
+  Musiker:innen übergreifend.
+* **Admin (`admin`)** — hat vollen Zugriff auf die gesamte Instanz.
+
+Ein Konto wird entweder von einem Admin angelegt oder über einen
+Einladungslink eingerichtet; die Veranstaltung erscheint nach dem
+Speichern direkt und ohne weitere Prüfung, sobald sie veröffentlicht wird.
+
+### Als anonyme Person (Vorschlag)
+
+Fehlt ein Benutzerkonto, kann ein Termin trotzdem vorgeschlagen werden —
+ganz ohne Registrierung:
+
+1. Über den Vorschlags-Assistenten Titel, Datum, Ort und Beschreibung
+   eintragen; optional lässt sich ein Bild hochladen.
+2. In der Vorschau weist dansal bereits auf mögliche Duplikate mit
+   bestehenden Terminen hin.
+3. Vorschlag absenden und per E-Mail oder Telegram verifizieren, um Spam
+   zu vermeiden.
+4. Der Vorschlag geht an die Admins der Instanz und wird erst nach
+   Prüfung veröffentlicht.
+
+Der Unterschied zum angemeldeten Weg liegt also im Freigabeschritt: Ein
+Konto veröffentlicht direkt, ein anonymer Vorschlag durchläuft vorher eine
+manuelle Prüfung. Details zum Vorschlags-Assistenten aus Besuchersicht
+stehen im Kapitel [Für Besucher:innen](../04.fuer-besucher).

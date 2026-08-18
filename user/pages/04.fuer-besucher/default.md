@@ -33,7 +33,7 @@ Durch Klick auf eine Veranstaltung öffnet sich die Seite mit Details. Im Kopf-B
 
 Darunter ist die Beschreibung der Veranstaltung. Auf der rechten Seite sind in verschiedenen Segmenten Details über den Veranstaltungsort, unter anderem eine kleine Karte der Umgebung. Mit Klick auf diese Karte wird Openstreetmap geöffnet.
 
-Im unteren Bereich sind noch Kurzinfos zu dem Veranstalter hinterlegt. Mit Klick hierauf erscheinen die bei dansal hinterlegten Informatiionen über den Veranstalter.
+Im unteren Bereich sind noch Kurzinfos zu dem Veranstalter hinterlegt. Mit Klick hierauf erscheinen die bei dansal hinterlegten Informationen über den Veranstalter.
 
 Soweit eingepflegt, sind Links zur Originalseite der Veranstaltung vorhanden und auch zur Internetseite des Veranstalters.
 
