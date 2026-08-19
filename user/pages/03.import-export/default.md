@@ -6,6 +6,7 @@ menu: Import & Export
 # Wie kommen Termine in den Kalender?
 
 dansal ist als übergreifender Kalender konzipiert, um Veranstaltungen verschiedener Folkclubs übersichtlich darzustellen. Wer Bälle veranstaltet, soll möglichst einfach auch auf dansal die Termine veröffentlichen. Ohne die Veranstaltung auf mehreren Seiten einzupflegen. Oder gar auf mehreren Seiten aktualisieren zu müssen. Hierzu bietet dansal verschiedene Wege, um Veranstaltungen unterschiedlicher Vereine auf einer Seite darstellen zu können.
+
 ![Übersicht: dansal als Datenbank für eingebettete Termine](overview_importexport.png)
 
 ## 1. Eigene Website behalten, nur einen Kalender pflegen
@@ -121,8 +122,6 @@ Je nach zugewiesener Rolle unterscheidet sich, was bearbeitet werden kann:
 
 * **Nutzer:in (`user`)** — legt Termine ausschließlich für die eigene
   Organisation an.
-* **Publisher (`publisher`)** — verwaltet Termine, Veranstaltungsorte und
-  Musiker:innen übergreifend.
 * **Admin (`admin`)** — hat vollen Zugriff auf die gesamte Instanz.
 
 Ein Konto wird entweder von einem Admin angelegt oder über einen
